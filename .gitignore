@@ -73,3 +73,5 @@ pointclouds/
 compile_commands.json
 
 venv/
+
+.venv/
