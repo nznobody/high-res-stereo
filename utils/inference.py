@@ -1,10 +1,44 @@
 import cv2
 import numpy as np
-# import skimage.io
 import torch
 import time
 from models.submodule import *
 from utils.preprocess import get_transform
+
+
+def prepare_image_pair(left_img, right_img, scale_factor):
+    processed = get_transform()
+    imgL_o = (cv2.cvtColor(left_img, cv2.COLOR_BGR2RGB)).astype(np.float32)
+
+    imgR_o = cv2.cvtColor(right_img, cv2.COLOR_BGR2RGB).astype(np.float32)
+
+    input_img_size = imgL_o.shape[:2]
+    
+    # resize
+    imgL_o = cv2.resize(imgL_o,None,fx=scale_factor,fy=scale_factor,interpolation=cv2.INTER_CUBIC)
+    imgR_o = cv2.resize(imgR_o,None,fx=scale_factor,fy=scale_factor,interpolation=cv2.INTER_CUBIC)
+
+    input_img_size_scaled = imgL_o.shape[:2]
+
+    imgL = processed(imgL_o).numpy()
+    imgR = processed(imgR_o).numpy()
+
+    imgL = np.reshape(imgL,[1,3,imgL.shape[1],imgL.shape[2]])
+    imgR = np.reshape(imgR,[1,3,imgR.shape[1],imgR.shape[2]])
+
+    ##fast pad
+    h_img_net_in = int(imgL.shape[2] // 64 * 64)
+    w_img_net_in = int(imgL.shape[3] // 64 * 64)
+    if h_img_net_in < imgL.shape[2]: h_img_net_in += 64
+    if w_img_net_in < imgL.shape[3]: w_img_net_in += 64
+
+    top_pad = h_img_net_in-imgL.shape[2]
+    left_pad = w_img_net_in-imgL.shape[3]
+    imgL = np.lib.pad(imgL,((0,0),(0,0),(top_pad,0),(0,left_pad)),mode='constant',constant_values=0)
+    imgR = np.lib.pad(imgR,((0,0),(0,0),(top_pad,0),(0,left_pad)),mode='constant',constant_values=0)
+
+    return imgL, imgR, input_img_size, input_img_size_scaled, (h_img_net_in, w_img_net_in)
+
 
 def load_image_pair(left_img_path, right_img_path, scale_factor):
     processed = get_transform()
