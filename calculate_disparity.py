@@ -112,9 +112,9 @@ def main():
         with open('%s/%s-disp0HSM.pfm'% (args.outdir, idxname),'w') as f:
             save_pfm(f,pred_disp[::-1,:])
 
-    cv2.imshow('disp', disp_vis.astype(np.uint8))
-    cv2.imshow('ent', ent_vis.astype(np.uint8))
-    cv2.waitKey(0)
+    # cv2.imshow('disp', disp_vis.astype(np.uint8))
+    # cv2.imshow('ent', ent_vis.astype(np.uint8))
+    # cv2.waitKey(0)
 
 if __name__ == '__main__':
     main()
