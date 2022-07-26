@@ -2,8 +2,10 @@ import cv2
 import numpy as np
 import torch
 import time
+import logging
 from models.submodule import *
 from utils.preprocess import get_transform
+log = logging.getLogger(__name__)
 
 
 def prepare_image_pair(left_img, right_img, scale_factor):
@@ -43,17 +45,17 @@ def prepare_image_pair(left_img, right_img, scale_factor):
 def load_image_pair(left_img_path, right_img_path, scale_factor):
     processed = get_transform()
 
-    print("load left img: " + left_img_path)
+    log.info("load left img: " + left_img_path)
     imgL_o = cv2.imread(left_img_path, cv2.IMREAD_COLOR)
     imgL_o = (cv2.cvtColor(imgL_o, cv2.COLOR_BGR2RGB)).astype(np.float32)
     # imgL_o = (skimage.io.imread(left_img_path).astype('float32'))[:,:,:3]
-    print(imgL_o.shape)
+    log.info(imgL_o.shape)
 
-    print("load right img: " + right_img_path)
+    log.info("load right img: " + right_img_path)
     imgR_o = cv2.imread(right_img_path, cv2.IMREAD_COLOR)
     imgR_o = cv2.cvtColor(imgR_o, cv2.COLOR_BGR2RGB).astype(np.float32)
     # imgR_o = (skimage.io.imread(right_img_path).astype('float32'))[:,:,:3]
-    print(imgR_o.shape)
+    log.info(imgR_o.shape)
 
     input_img_size = imgL_o.shape[:2]
     
@@ -93,5 +95,5 @@ def perform_inference(model, imgL, imgR, cuda):
         pred_disp, entropy = model(imgL, imgR)
         if cuda:
             torch.cuda.synchronize()
-        ttime = (time.time() - start_time); print('runtime = %.2f' % (ttime*1000) )
+        ttime = (time.time() - start_time); log.debug('runtime = %.2f' % (ttime*1000) )
     return pred_disp, entropy, ttime

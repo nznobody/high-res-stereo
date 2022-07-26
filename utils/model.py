@@ -1,7 +1,9 @@
 from models import hsm
 import torch
 import torch.nn as nn
+import logging
 from models.submodule import *
+log = logging.getLogger(__name__)
 
 def load_model(model_path, max_disp, clean, cuda=True, data_parallel_model=False):
     # construct model
@@ -23,8 +25,8 @@ def load_model(model_path, max_disp, clean, cuda=True, data_parallel_model=False
         pretrained_dict['state_dict'] =  {k:v for k,v in pretrained_dict['state_dict'].items() if 'disp' not in k}
         model.load_state_dict(pretrained_dict['state_dict'],strict=False)
     else:
-        print('run with random init')
-    print('Number of model parameters: {}'.format(sum([p.data.nelement() for p in model.parameters()])))
+        log.debug('run with random init')
+    log.debug('Number of model parameters: {}'.format(sum([p.data.nelement() for p in model.parameters()])))
 
     if not data_parallel_model:
         if cuda:
@@ -37,7 +39,7 @@ def load_model(model_path, max_disp, clean, cuda=True, data_parallel_model=False
 
 
 def trace_model(module, imgL, imgR):
-    print("Creating script module of traced model")
+    log.debug("Creating script module of traced model")
     traced_script_module = None
     with torch.no_grad():
         exampleInput = (imgL, imgR)
@@ -47,7 +49,7 @@ def trace_model(module, imgL, imgR):
     return traced_script_module
 
 def create_script_model(module, imgL, imgR):
-    print("Creating script module")
+    log.debug("Creating script module")
     script_module = None
     # with torch.no_grad():
     # with torch.jit.optimized_execution(True):
