@@ -4,8 +4,8 @@ import numpy as np
 import torch
 import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
-from utils.inference import *
-from utils.eval import save_pfm
+from high_res_stereo.utils.inference import *
+from high_res_stereo.utils.eval import save_pfm
 #cudnn.benchmark = True
 cudnn.benchmark = False
 

@@ -6,10 +6,10 @@ import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
-from utils.model import load_model
-from utils.inference import *
-from models.submodule import *
-from utils.eval import save_pfm
+from high_res_stereo.utils.model import load_model
+from high_res_stereo.utils.inference import *
+from high_res_stereo.models.submodule import *
+from high_res_stereo.utils.eval import save_pfm
 from torchviz import make_dot
 #cudnn.benchmark = True
 cudnn.benchmark = False

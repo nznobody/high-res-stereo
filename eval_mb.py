@@ -4,7 +4,7 @@ import numpy as np
 import glob
 from matplotlib import pyplot as plt
 from texttable import Texttable
-from utils.readpfm import readPFM
+from high_res_stereo.utils.readpfm import readPFM
 import cv2
 import pdb
 import os

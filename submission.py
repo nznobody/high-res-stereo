@@ -11,9 +11,9 @@ import torch.nn as nn
 import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
 import time
-from models.submodule import *
-from utils.eval import mkdir_p, save_pfm
-from utils.preprocess import get_transform
+from high_res_stereo.models.submodule import *
+from high_res_stereo.utils.eval import mkdir_p, save_pfm
+from high_res_stereo.utils.preprocess import get_transform
 #cudnn.benchmark = True
 cudnn.benchmark = False
 

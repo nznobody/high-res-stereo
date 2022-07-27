@@ -5,10 +5,10 @@ import os
 import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
-from utils.model import *
-from utils.inference import *
-from models.submodule import *
-from utils.eval import save_pfm
+from high_res_stereo.utils.model import *
+from high_res_stereo.utils.inference import *
+from high_res_stereo.models.submodule import *
+from high_res_stereo.utils.eval import save_pfm
 #cudnn.benchmark = True
 cudnn.benchmark = False
 

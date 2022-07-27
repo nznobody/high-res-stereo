@@ -6,8 +6,8 @@ import torch
 import torch.nn as nn
 import torch.backends.cudnn as cudnn
 from torch.autograd import Variable
-from models.submodule import *
-from utils.model import load_model
+from high_res_stereo.models.submodule import *
+from high_res_stereo.utils.model import load_model
 #cudnn.benchmark = True
 cudnn.benchmark = False
 

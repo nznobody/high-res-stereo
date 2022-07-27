@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "high-res-stereo"
+version = "0.2.0"
+description = "Hierarchical Deep Stereo Matching on High Resolution Images"
+authors = ["Gengshan Yang <gengshay@cs.cmu.edu>", "Manu Lange <manu.lange@plantandfood.co.nz>"]
+license = "MIT License"
+readme = "README.md"
+packages = [{include = "high_res_stereo", from = "src"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+torch = "^1.12.0"
+torchvision = "^0.13.0"
+opencv-python-headless = "^4.6.0.66"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

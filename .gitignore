@@ -75,3 +75,7 @@ compile_commands.json
 venv/
 
 .venv/
+dist/
+
+# models
+*.tar
